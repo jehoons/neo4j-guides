@@ -11,3 +11,6 @@ install:
 	./run.sh $< $@
 	sed -i 's/%STANDB_IPADDR%/${STANDB_IPADDR}/g' $@
 
+clean: 
+	rm -rf $(OBJS)
+
