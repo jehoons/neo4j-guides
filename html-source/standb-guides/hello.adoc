@@ -1,0 +1,6 @@
+= A Test Guide
+
+== First Slide: Media
+
+image::http://%STANDB_IPADDR%:5015/assets/standb-overview.png[width=200,float=right]
+

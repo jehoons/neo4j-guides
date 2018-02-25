@@ -1,0 +1,57 @@
+= DWPC 
+
+== First Slide: Media
+
+[source,cypher]
+----
+CREATE (db:Database {name:"Neo4j"})
+RETURN db
+----
+
+=== Querying Data
+:name: pass:a['<span value-key="name">Neo4j</span>']
+
+We use a form field here:
+
+++++
+<input style="display:inline;width:30%;" value-for="name" class="form-control" value="Neo4j" size="40">
+++++
+
+[source,cypher,subs=attributes]
+----
+MATCH (db:Database {name:{name}})
+RETURN db
+----
+
+
+:compid: pass:a['<span value-key="compid">compid</span>']
+++++
+<input style="display:inline;width:30%;" value-for="compid" class="form-control" value="DB01156" size="40">
+++++
+:diseid: pass:a['<span value-key="diseid">compid</span>']
+++++
+<input style="display:inline;width:30%;" value-for="diseid" class="form-control" value="DOID:0050742" size="40">
+++++
+[source,cypher,subs=attributes]
+----
+ MATCH path = (n0:Compound)-[:BINDS_CbG]-(n1)-[:PARTICIPATES_GpPW]-(n2)
+      -[:PARTICIPATES_GpPW]-(n3)-[:ASSOCIATES_DaG]-(n4:Disease)
+    USING JOIN ON n2
+    WHERE n0.identifier = '{compid}'
+      AND n4.identifier = '{diseid}'
+      AND n1 <> n3
+    WITH
+    [
+      size((n0)-[:BINDS_CbG]-()),
+      size(()-[:BINDS_CbG]-(n1)),
+      size((n1)-[:PARTICIPATES_GpPW]-()),
+      size(()-[:PARTICIPATES_GpPW]-(n2)),
+      size((n2)-[:PARTICIPATES_GpPW]-()),
+      size(()-[:PARTICIPATES_GpPW]-(n3)),
+      size((n3)-[:ASSOCIATES_DaG]-()),
+      size(()-[:ASSOCIATES_DaG]-(n4))
+    ] AS degrees, path
+    RETURN
+      count(path) AS PC,
+      sum(reduce(pdp = 1.0, d in degrees| pdp * d ^ -0.4)) AS DWPC
+----
