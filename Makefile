@@ -4,8 +4,8 @@ OBJS=$(SRCS:.adoc=.html)
 all: $(OBJS)
 
 install: 
-	rm -rf /var/www/html
-	cp -r html-source /var/www/html
+	mkdir -p /var/www/html 
+	cp -r html-source/* /var/www/html/
 
 %.html : %.adoc
 	if [ -z ${STANDB_IPADDR+x} ]; then \
