@@ -45,7 +45,7 @@ CALL db.schema()
 ----
 
 ++++
-<img src="https://www.dropbox.com/s/rqlnxnef6gs6ftc/standb-overview.png?raw=1" title="StanDB v3.1 Metagraph for Cypher" class="img-responsive">
+<img src="http://%STANDB_IPADDR%:5015/assets/standb-overview.png" title="StanDB v3.1 Metagraph for Cypher" class="img-responsive">
 
 </div>
 ++++
